@@ -20,6 +20,27 @@ class User extends Controller {
      */
     function get(Request $request) {
         $user = M_User::find($request->getParam('user_id'));
-        return new Response($user->toArray());
+        if ($user)
+            return new Response($user->toArray());
+        return new Response(null, Response::HTTP_404_NOT_FOUND);
+    }
+
+    /**
+     * Create new user.
+     *
+     * @param Request $request
+     * @return Response
+     */
+    function post(Request $request) {
+        //TODO validate input
+        $user = new M_User($request->getData());
+        $user->save();
+        return new Response($user->toArray(), Response::HTTP_201_CREATED);
+    }
+
+    function delete(Request $request) {
+        $user = M_User::find($request->getParam('user_id'));
+        $user->delete();
+        return new Response(null, Response::HTTP_204_NO_CONTENT);
     }
 }
