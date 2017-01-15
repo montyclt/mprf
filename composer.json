@@ -1,0 +1,11 @@
+{
+    "require": {
+        "illuminate/database": "^5.3",
+        "symfony/yaml": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "MPRF\\": "mprf/"
+        }
+    }
+}
