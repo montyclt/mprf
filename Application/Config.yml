@@ -1,0 +1,52 @@
+# Be careful with indentation, this is a YAML file.
+
+# Monty PHP Rest Framework configuration file.
+
+# Production environment hide errors.
+Production: false
+
+# If the framework is installed on subdirectory in server,
+# set it as basepath. Include the first slash and exclude
+# the last slash.
+#
+# E.g. '/api'
+Basepath: /apiex/index.php
+
+# Set version to your API
+APIVersion: r1
+
+# Set the author and the name of this API application.
+# Use it in the namespaces like this format:
+#
+# Author\Name\Bundle\Folder\File
+# E.g. MontyCLT\HelloWord\Main\Controller\Init
+APIAuthor: MontyCLT
+APIName: HelloWord
+
+# You can set different database credentials if you project need to
+# connect with more than one database identified by name.
+#
+# The framework use Eloquent as ORM, this setting must be valid for an
+# Capsule Manager.
+#
+# There are an examples of connection info, replace it for you database.
+DatabaseCredentials:
+  - name:      example1
+    driver:    mysql
+    host:      hostname1
+    username:  username1
+    password:  password1
+    database:  database1
+    charset:   utf8
+    collation: utf8_unicode_ci
+    prefix:
+
+  - name:     test
+    driver:   mysql
+    host:     localhost
+    username: root
+    password: #Password can be empty
+    database: test
+    charset:   utf8
+    collation: utf8_unicode_ci
+    prefix:

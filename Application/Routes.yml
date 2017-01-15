@@ -1,0 +1,5 @@
+# Be careful with indentation, this is a YAML file.
+
+GET /user/[i:user_id]:
+  Bundle: Main
+  Controller: User

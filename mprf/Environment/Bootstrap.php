@@ -11,7 +11,9 @@
  * Get started in docs.mprf.io
  */
 
-use Illuminate\Database\Capsule\Manager;
+use Whoops\Run as Whoops;
+use Whoops\Handler\PrettyPageHandler;
+use Illuminate\Database\Capsule\Manager as CapsuleManager;
 use MPRF\Request\Router;
 use MPRF\Request\Request;
 use MPRF\Request\Response;
@@ -45,12 +47,17 @@ abstract class Bootstrap {
     }
 
     /**
-     * Set a set of rules for the configured environment..
+     * Set a set of rules for the configured environment.
      */
     private static function setEnvironmentRules() {
         if (Environment::i()->isProductionEnvironment()) {
             error_reporting(0);
             ini_set('display_errors', false);
+        } else {
+            //Set whoops as error handler.
+            $whoops = new Whoops();
+            $whoops->pushHandler(new PrettyPageHandler());
+            $whoops->register();
         }
     }
 
@@ -59,10 +66,10 @@ abstract class Bootstrap {
      */
     private static function registerApplicationLoader() {
         spl_autoload_register(function ($class) {
-            $prefix = Environment::i()->getAPIName();
+            $prefix = Environment::i()->getAPIAuthor() . '\\' . Environment::i()->getAPIName();
             $class = explode('\\', $class);
-            if ($class[0] == $prefix) {
-                array_shift($class);
+            if ($class[0] . '\\' . $class[1] == $prefix) {
+                $class = array_slice($class, 2);
                 $route = 'Application/';
                 foreach ($class as $separator) {
                     $route .= $separator . '/';
@@ -77,7 +84,7 @@ abstract class Bootstrap {
      * Boot Eloquent ORM.
      */
     private static function bootEloquent() {
-        $capsuleManager = new Manager();
+        $capsuleManager = new CapsuleManager();
         foreach (Environment::i()->getConnections() as $connection) {
             $capsuleManager->addConnection($connection);
         }

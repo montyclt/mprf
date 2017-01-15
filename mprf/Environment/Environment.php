@@ -103,6 +103,13 @@ final class Environment {
     }
 
     /**
+     * Get the name of the API's author.
+     */
+    public function getAPIAuthor() {
+        return $this->config['APIAuthor'];
+    }
+
+    /**
      * Get the name of your API.
      *
      * @since 1.0/F-04/2017

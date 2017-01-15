@@ -267,7 +267,11 @@ class Router {
                 $this->map(
                     $method,
                     $route,
-                    '\\'.Environment::i()->getAPIName().'\\' . $route_info['Bundle'] . '\\Controller\\' . $route_info['Controller']
+                    '\\' . Environment::i()->getAPIAuthor()
+                    . '\\' . Environment::i()->getAPIName()
+                    . '\\' . $route_info['Bundle']
+                    . '\\Controller\\'
+                    . $route_info['Controller']
                 );
             }
         } catch (ParseException $e) {
