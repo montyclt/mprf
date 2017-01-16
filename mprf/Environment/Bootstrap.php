@@ -36,6 +36,7 @@ final class Bootstrap {
      * Boot framework and handle the request.
      */
     public static function start() {
+        define('MPRF', true);
         self::checkRequirementsOrDie();
         self::setEnvironmentRules();
         self::registerApplicationLoader();
