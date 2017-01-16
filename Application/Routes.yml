@@ -1,5 +1,6 @@
 # Be careful with indentation, this is a YAML file.
 
 Main:
+  GET /: Status
   POST /user: User
   GET|DELETE /user/[i:user_id]: User
