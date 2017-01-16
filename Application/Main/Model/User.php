@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class User extends Model {
     use SoftDeletes;
 
-//    protected $connection = 'test2';
-    protected $dates = ['deleted_at'];
     protected $fillable = ['name', 'age'];
+    protected $hidden = ['deleted_at'];
 }
