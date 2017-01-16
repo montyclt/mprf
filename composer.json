@@ -1,5 +1,20 @@
 {
+    "name": "montyclt/mprf",
+    "type": "framework",
+    "description": "A Model-Controller PHP Rest Framework",
+    "keywords": ["rest", "framework", "model", "controller"],
+    "homepage": "https://github.com/montyclt/mprf",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ivan Montilla",
+            "email": "ivan@mprf.io",
+            "homepage": "ivanmontilla.io",
+            "role": "Developer and Leader"
+        }
+    ],
     "require": {
+        "php": ">=5.6.4",
         "illuminate/database": "^5.3",
         "symfony/yaml": "*",
         "filp/whoops": "^2.1"
