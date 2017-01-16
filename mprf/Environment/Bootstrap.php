@@ -25,7 +25,13 @@ use MPRF\Request\Response;
  * @author Ivan Montilla <ivan@mprf.io>
  * @since 1.0/F-07/2017
  */
-abstract class Bootstrap {
+final class Bootstrap {
+
+    /**
+     * Avoid any intent to initializing this class.
+     */
+    private function __construct(){}
+
     /**
      * Boot framework and handle the request.
      */
