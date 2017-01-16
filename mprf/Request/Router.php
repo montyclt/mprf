@@ -266,11 +266,11 @@ class Router {
                     $route = explode(' ', $route);
                     $this->map(
                         $route[0], $route[1],
-                        '\\' . Environment::i()->getAPIAuthor()
-                        . '\\' . Environment::i()->getAPIName()
-                        . '\\' . $bundle
-                        . '\\Controller\\'
-                        . $controller
+                        '\\' . Environment::i()->getAPIAuthor() .
+                        '\\' . Environment::i()->getAPIName() .
+                        '\\' . $bundle .
+                        '\\Controller\\' .
+                        $controller
                     );
                 }
             }
