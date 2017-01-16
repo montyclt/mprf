@@ -6,6 +6,7 @@
  * http://altorouter.com/
  */
 
+use MPRF\Common\Utils;
 use MPRF\Environment\Environment;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
@@ -260,19 +261,18 @@ class Router {
      */
 	public function registerRoutesFromFile() {
         try {
-            foreach (Yaml::parse(file_get_contents(Environment::ROUTES_FILE)) as $full_route => $route_info) { # TODO: Obtener ficheros de rutaas.
-                $full_route = explode(' ', $full_route);
-                $method = $full_route[0];
-                $route = $full_route[1];
-                $this->map(
-                    $method,
-                    $route,
-                    '\\' . Environment::i()->getAPIAuthor()
-                    . '\\' . Environment::i()->getAPIName()
-                    . '\\' . $route_info['Bundle']
-                    . '\\Controller\\'
-                    . $route_info['Controller']
-                );
+            foreach (Yaml::parse(file_get_contents(Environment::ROUTES_FILE)) as $bundle => $routes) {
+                foreach ($routes as $route => $controller) {
+                    $route = explode(' ', $route);
+                    $this->map(
+                        $route[0], $route[1],
+                        '\\' . Environment::i()->getAPIAuthor()
+                        . '\\' . Environment::i()->getAPIName()
+                        . '\\' . $bundle
+                        . '\\Controller\\'
+                        . $controller
+                    );
+                }
             }
         } catch (ParseException $e) {
             throw new Exception('The routes file is bad formed: ' . $e->getMessage(), -21, $e);

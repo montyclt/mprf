@@ -1,9 +1,5 @@
 # Be careful with indentation, this is a YAML file.
 
-POST /user:
-  Bundle: Main
-  Controller: User
-
-GET|DELETE /user/[i:user_id]:
-  Bundle: Main
-  Controller: User
+Main:
+  POST /user: User
+  GET|DELETE /user/[i:user_id]: User
