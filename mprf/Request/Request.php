@@ -10,6 +10,8 @@
  * Get started in docs.mprf.io
  */
 
+#TODO: Refactor class, more info in Trello.
+
 /**
  * Class Request
  *
@@ -45,6 +47,13 @@ class Request {
     private $queryArray;
 
     /**
+     * Client IP Address.
+     *
+     * @var string
+     */
+    private $clientIP;
+
+    /**
      * Request constructor.
      *
      * @param array $params
@@ -53,6 +62,8 @@ class Request {
         $this->setHttpMethod();
         $this->setParams($params);
         $this->setData();
+        $this->setQueryString();
+        $this->setClientIP();
     }
 
     /**
@@ -85,7 +96,7 @@ class Request {
      * Get the current HTTP Method.
      */
     public function getHttpMethod() {
-        return $this->httpMethod;
+        return strtoupper($this->httpMethod);
     }
 
     /**
@@ -103,40 +114,56 @@ class Request {
      * @return string
      */
     public function getClientIP() {
-        return $_SERVER['REMOTE_ADDR'];
+        return $this->clientIP;
     }
 
     /**
-     * Get an associative array with the body of request sent a JSON.
+     * Get an associative array with the body of request sent as JSON.
      */
     public function getData() {
         return $this->data;
     }
 
     /**
-     * Read the body of HTTP request, parse to array and set it in 'data' class field.
+     * Read the body of HTTP request, parse it to array and set it on the instance.
      */
     public function setData() {
         $this->data = json_decode(file_get_contents('php://input'), true);
     }
 
     /**
+     * Return the QueryString as array.
+     *
      * @return array
+     * @internal param $key
      */
-    public function getAllQS()
-    {
+    public function getQueryString() {
         return $this->queryArray;
     }
 
-    public function getQS($key) {
-        return $this->queryArray[$key];
+    /**
+     * Return only one field of the QuerySring
+     *
+     * @param string $field
+     * @return string
+     */
+    public function getQueryStringField($field)
+    {
+        return $this->queryArray[$field];
     }
 
     /**
-     * Parse the querystring to array and set it.
+     * Parse the QueryString to array and set it on the instance.
      */
-    public function setQueryArray()
+    public function setQueryString()
     {
         $this->queryArray = $_GET;
+    }
+
+    /**
+     * Set client IP addr.
+     */
+    private function setClientIP() {
+        $this->clientIP = $_SERVER['REMOTE_ADDR'];
     }
 }

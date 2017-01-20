@@ -23,7 +23,7 @@ use MPRF\Request\Response;
  *
  * @package Framework\Environment
  * @author Ivan Montilla <ivan@mprf.io>
- * @since 1.0/F-07/2017
+ * @since B1/A-07/2017
  */
 final class Bootstrap {
 

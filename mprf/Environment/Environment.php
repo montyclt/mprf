@@ -20,14 +20,14 @@ use Symfony\Component\Yaml\Yaml;
  *
  * @package Framework\Core
  * @author Ivan Montilla <contact@ivanmontilla.es>
- * @since 1.0/F-04/2017
+ * @since B1/A-04/2017
  */
 final class Environment {
     use Singleton;
 
     const CONFIG_FILE = "Application/Config.yml";
     const ROUTES_FILE = "Application/Routes.yml";
-    const FW_REVISION = "1.0/F-05/2017";
+    const FW_REVISION = "B1/A-19/2017";
 
     /**
      * Associative array with framework configurations.
@@ -42,7 +42,7 @@ final class Environment {
      * Fill the config array.
      *
      * @throws Exception
-     * @since 1.0/F-05/2017
+     * @since B1/A-05/2017
      */
     function __construct() {
         $this->fillConfigArray();
@@ -52,7 +52,7 @@ final class Environment {
      * Read Config.yml and fill config array with the file data.
      *
      * @throws Exception
-     * @since 1.0/F-05/2017
+     * @since B1/A-05/2017
      */
     private function fillConfigArray() {
         try {
@@ -65,7 +65,7 @@ final class Environment {
     /**
      * Check if the environment configuration is set to production.
      *
-     * @since 1.0/F-04/2017
+     * @since B1/A-04/2017
      * @return bool
      */
     public function isProductionEnvironment() {
@@ -75,17 +75,19 @@ final class Environment {
     /**
      * Get the basepath of your API.
      *
-     * @since 1.0/F-04/2017
+     * @since B1/A-04/2017
      * @return string|null
      */
     public function getBasePath() {
-        return $this->config['Basepath'] ? $this->config['Basepath'] : null;
+        $basepath = $this->config['Basepath'] ? $this->config['Basepath'] : null;
+        if (!$this->isHiddenIndex()) $basepath .= '/index.php';
+        return $basepath;
     }
 
     /**
      * Get the revision of framework.
      *
-     * @since 1.0/F-04/2017
+     * @since B1/A-04/2017
      * @return string
      */
     public function getFWRevision() {
@@ -95,7 +97,7 @@ final class Environment {
     /**
      * Get the version of your API.
      *
-     * @since 1.0/F-04/2017
+     * @since B1/A-04/2017
      * @return string
      */
     public function getAPIVersion() {
@@ -112,7 +114,7 @@ final class Environment {
     /**
      * Get the name of your API.
      *
-     * @since 1.0/F-04/2017
+     * @since B1/A-04/2017
      * @return string
      */
     public function getAPIName() {
@@ -122,7 +124,7 @@ final class Environment {
     /**
      * Return true when all requirements are satisfied.
      *
-     * @since 1.0/F-06/2017
+     * @since B1/A-06/2017
      * @return bool
      */
     public function isRequirementsFulfilled() {
@@ -132,10 +134,20 @@ final class Environment {
     /**
      * Return and array of connections that is accepted by the capsule manager.
      *
-     * @since 1.0/F-07/2017
+     * @since B1/A-07/2017
      * @return array
      */
     public function getConnections() {
         return $this->config['DatabaseCredentials'];
+    }
+
+    /**
+     * Return true if the server has enabled some renaming module that hide index.php
+     *
+     * @since B1/A-20/2017
+     * @return bool
+     */
+    public function isHiddenIndex() {
+        return (bool)$this->config['HiddenIndex'];
     }
 }

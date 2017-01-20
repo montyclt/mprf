@@ -17,7 +17,7 @@
  *
  * @package Framework\Common
  * @author Ivan Montilla
- * @since 1.0/F-04/2017
+ * @since B1/A-04/2017
  */
 trait Singleton {
 

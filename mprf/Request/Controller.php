@@ -9,6 +9,8 @@
  *
  * Get started in docs.mprf.io
  */
+use MPRF\Environment\Environment;
+use MPRF\Model\Log;
 
 /**
  * In your controllers, extends this class and override the methods.
@@ -17,7 +19,20 @@
  */
 abstract class Controller {
 
+    /**
+     * @var array
+     */
     private $data = ["detail" => "HTTP Method (verb) is not allowed."];
+
+    /**
+     * @var Request
+     */
+    protected $request;
+
+    private function __construct(Request $request) {
+        $this->request = $request;
+        $this->logCall();
+    }
 
     /**
      * Override this method for allow GET request.
@@ -77,5 +92,16 @@ abstract class Controller {
      */
     function filter() {
         return null;
+    }
+
+    /**
+     * Log the API Call to Database.
+     */
+    private function logCall() {
+        $log = new Log();
+        $log->method = $this->request->getHttpMethod();
+        $log->endpoint = substr(isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '/', strlen(Environment::i()->getBasePath()));
+        $log->ip_addr = $this->request->getClientIP();
+        $log->save();
     }
 }

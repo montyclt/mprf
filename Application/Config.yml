@@ -1,27 +1,29 @@
 # Be careful with indentation, this is a YAML file.
-
-# Monty PHP Rest Framework configuration file.
+# MPRF configuration file.
 
 # Production environment hide errors.
 Production: false
 
-# If the framework is installed on subdirectory in server,
+# If the framework is installed in subdirectory on the server,
 # set it as basepath. Include the first slash and exclude
 # the last slash.
 #
 # E.g. '/api'
-Basepath: /apiex/index.php
+Basepath: /apiex
 
-# Set version to your API
-APIVersion: r1
+# If the servers is using any URL renaming module for hide index.php in URL,
+# set this to true, if not, set it to false. If this option is not setted correctly,
+# MPRF may work bad.
+HiddenIndex: false
 
-# Set the author and the name of this API application.
-# Use it in the namespaces like this format:
-#
-# Author\Name\Bundle\Folder\File
-# E.g. MontyCLT\HelloWord\Main\Controller\Init
-APIAuthor: MontyCLT
-APIName: HelloWord
+# API's version.
+Version: r1
+
+# API's author.
+Author: MontyCLT
+
+# API's name.
+Name: HelloWord
 
 # You can set different database credentials if you project need to
 # connect with more than one database identified by name.

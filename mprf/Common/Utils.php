@@ -21,14 +21,14 @@
  *
  * @package Framework\Common
  * @author Ivan Montilla
- * @since 1.0/F-04/2017
+ * @since B1/A-04/2017
  */
 abstract class Utils {
 
     /**
      * Transform a value's array to references' array.
      *
-     * @since 1.0/F-04/2017
+     * @since B1/A-04/2017
      * @param array $arr
      * @return array
      */
@@ -53,7 +53,7 @@ abstract class Utils {
      * Other possible utility of this method is call it on block
      * that isn't implemented yet with to-do comment.
      *
-     * @since 1.0/F-04/2017
+     * @since B1/A-04/2017
      */
     public static function doNothing() {}
 
@@ -64,7 +64,7 @@ abstract class Utils {
      *
      * @param int $length
      * @return string
-     * @since 1.0/F-05/2017
+     * @since B1/A-05/2017
      */
     public static function generateRandomString($length) {
         $characters = '0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
