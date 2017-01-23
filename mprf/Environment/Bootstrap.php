@@ -103,19 +103,9 @@ final class Bootstrap {
      * Handle the request and send the response.
      */
     private static function handleRequest() {
-        //Create a router.
-        $router = new Router();
-
-        //Set base path to the router.
-        $router->setBasePath(Environment::i()->getBasePath());
-
-        //Register the routes that are in Routes.yml to the router.
-        $router->registerRoutesFromFile();
-
-        //Check if the route exists.
+        $router = self::createRouter();
         $route = $router->match();
 
-        //If the route not exist, send a response with 404.
         if (!$router->match()) {
             $response = new Response(['detail' => 'The requested URL not found.'], Response::HTTP_404_NOT_FOUND);
             $response->dispatch();
@@ -126,5 +116,16 @@ final class Bootstrap {
 
         call_user_func_array([new $route['target'](), strtolower($_SERVER['REQUEST_METHOD'])], [$request])
             ->dispatch();
+    }
+
+    /**
+     * Configure the router and get it.
+     */
+    private static function createRouter() {
+        $router = new Router();
+        $router->setBasePath(Environment::i()->getBasePath());
+        $router->registerRoutesFromFile();
+
+        return $router;
     }
 }
