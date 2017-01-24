@@ -19,6 +19,9 @@ HiddenIndex: false
 # API's version.
 Version: r1
 
+# Author is required
+AuthorRequired: true
+
 # API's author.
 Author: MontyCLT
 

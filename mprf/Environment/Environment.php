@@ -150,4 +150,14 @@ final class Environment {
     public function isHiddenIndex() {
         return (bool)$this->config['HiddenIndex'];
     }
+
+    /**
+     *
+     *
+     * @since B1/A-24/2017
+     * @return bool
+     */
+    public function isAuthorRequired() {
+        return (bool)$this->config['AuthorRequired'];
+    }
 }

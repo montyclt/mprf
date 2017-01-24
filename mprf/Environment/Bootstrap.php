@@ -73,7 +73,11 @@ final class Bootstrap {
      */
     private static function registerApplicationLoader() {
         spl_autoload_register(function ($class) {
-            $prefix = Environment::i()->getAPIAuthor() . '\\' . Environment::i()->getAPIName();
+            if (Environment::i()->isAuthorRequired()) {
+                $prefix = Environment::i()->getAPIAuthor() . '\\' . Environment::i()->getAPIName();
+            } else {
+                $prefix = Environment::i()->getAPIName();
+            }
             $class = explode('\\', $class);
             if ($class[0] . '\\' . $class[1] == $prefix) {
                 $class = array_slice($class, 2);
@@ -103,7 +107,7 @@ final class Bootstrap {
      * Handle the request and send the response.
      */
     private static function handleRequest() {
-        $router = self::createRouter();
+        $router = self::getConfiguredRouter();
         $route = $router->match();
 
         if (!$router->match()) {
@@ -121,7 +125,7 @@ final class Bootstrap {
     /**
      * Configure the router and get it.
      */
-    private static function createRouter() {
+    private static function getConfiguredRouter() {
         $router = new Router();
         $router->setBasePath(Environment::i()->getBasePath());
         $router->registerRoutesFromFile();
